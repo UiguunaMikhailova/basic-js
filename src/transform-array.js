@@ -24,22 +24,26 @@ function transform(arr) {
   const dip = '--discard-prev'
 
   for (let i = 0; i < arr.length; i++) {
-    if ((arr[i] === dn) && (i !== arr.length - 1)) {
-      newArr.push(arr[i + 1])
+    if (arr[i] === dn) {
+      if (i !== arr.length - 1) {
+        newArr.push(arr[i + 1])
+      }
+    } else if (arr[i] === dp) {
+      if ((i !== 0) && (arr[i - 2] !== din)) {
+        newArr.push(arr[i - 1])
+      }
+    } else if (arr[i] === din) {
+      i +=1
+    } else if (arr[i] === dip) {
+      if (arr[i - 2] !== din) {
+        newArr.pop()
+      }
+    } else {
+      newArr.push(arr[i])
     }
-    if ((arr[i] === dp) && (i !== 0) && (arr[i - 2] !== din)) {
-      newArr.push(arr[i - 1])
-    }
-    if (arr[i] === din) {
-      i += 1
-    }
-    if (arr[i] === dip && (arr[i - 2] !== dn)) {
-      newArr.pop()
-    }
-    newArr.push(arr[i])
   }
 
-  return newArr.filter(item => item !== dn && item !== dp && item !== din && item !== dip)
+  return newArr
 }
 
 module.exports = {
